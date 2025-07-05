@@ -56,6 +56,14 @@ app.use("/api/auth", AuthRoutes);
 app.use("/api/auth/profile", profileRoutes);
 
 // DB Connection
+
+// app.get("/" , (req, res) =>{
+//     res.json({message: "Welcome to backend "})
+// })
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the Mentorship API!");
+});
 connectDB();
 
 // Start server

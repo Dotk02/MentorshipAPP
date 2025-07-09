@@ -1,44 +1,11 @@
-// import express from "express";
-// import cors from "cors";
-// import dotenv from "dotenv";
-// import bodyParser from "body-parser";
-// import connectDB from "./config/mongodb.js";
-// import AuthRoutes from "./routes/AuthRoutes.js";
-// import profileRoutes from "./routes/profileRoute.js";
-// dotenv.config();
-
-// const port = process.env.PORT || 8000;
-// const app = express();
-
-
-// //middleware
-// app.use(express.json());
-// app.use(cors());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// //Routes
-// app.use("/api/auth", AuthRoutes);
-// app.use("/api/auth/profile", profileRoutes)
-
-// //connecting to DB
-// connectDB();
-
-// //start server
-
-// app.listen(8000, () => {
-//         console.log("server is running on port 8000")
-// });
-
-
-//copy from chtgpt
-
 import express from "express"; 
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 import connectDB from "./config/mongodb.js";
 import AuthRoutes from "./routes/AuthRoutes.js";
 import profileRoutes from "./routes/profileRoute.js";
-import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -49,30 +16,35 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
+// ✅ CORS Setup
+const allowedOrigins = ["https://mentorship-fron-end.vercel.app", "http://localhost:5173"];
 
-const allowOrigin = ["https://mentorship-fron-end.vercel.app", "http://localhost:5173"]
 app.use(cors({
-  origin: allowOrigin,
-  credentials:true,
-  methods:["GET", "POST","PUT", "DELETE"],
-  allowedHeaders: ["content-type", "Authorization"]
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 // Routes
 app.use("/api/auth", AuthRoutes);
 app.use("/api/auth/profile", profileRoutes);
 
-// DB Connection
+// Test Route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to backend" });
+});
 
-app.get("/" , (req, res) => {
-    res.json({message: "Welcome to backend "});
-})
-
-
+// Connect to DB
 connectDB();
 
-// Start server
+// Start Server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-

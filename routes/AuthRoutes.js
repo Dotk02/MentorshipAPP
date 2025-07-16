@@ -15,3 +15,6 @@ AuthRoutes.get("/getUserData/:id",getUserData);
 //user data route
 
 export default AuthRoutes;
+
+
+// export default router;

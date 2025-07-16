@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 // ✅ CORS Setup
-const allowedOrigins = ["https://mentorship-fron-end44.vercel.app", "http://localhost:5173"];
+const allowedOrigins = ["https://mentorship-frt-end-05.vercel.app", "http://localhost:5173"];
 
 app.use(cors({
   origin: (origin, callback) => {

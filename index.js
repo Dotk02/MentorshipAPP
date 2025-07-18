@@ -65,6 +65,7 @@ const app = express();
 // ✅ CORS Setup
 const allowedOrigins = [
   "https://mentorship-frt-end-05.vercel.app",
+   "https://mentorship-fnd.netlify.app",
   "http://localhost:5173"
 ];
 

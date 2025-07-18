@@ -46,7 +46,8 @@ const register = async (req, res) => {
             maxAge: 3 * 24 * 60 * 60 * 1000 // Corrected: 3 days in milliseconds
         });
 
-        return res.status(201).json({ message: "User registered successfully", 
+        return res.status(201).json({ 
+            message: "User registered successfully", 
             user: { 
                 id: user._id, 
                 name: user.name, 
